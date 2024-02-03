@@ -1,0 +1,31 @@
+const Fercho = async ({ url, method, body }) => {
+    try {
+      const configPost = {
+        method: "POST",
+        credentials: "include",
+        cors: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      };
+  
+      const configGet = {
+        method: "GET",
+        credentials: "include",
+        cors: "cors",
+      };
+  
+      const config = method.toLowerCase() === "post" ? configPost : configGet;
+  
+      const response = await fetch(url, config);
+      const data = await response.json();
+  
+      return data;
+    } catch (error) {
+      console.error(`Ocurrio un error realizando un fetch, donde la url era ${url} y el error fue ${error.message}`)
+      return false
+    }
+  };
+  
+  export default Fercho
